@@ -36,3 +36,4 @@ The lichess account insights are great but I wanted more customization. This rep
   - set sh files to be executable
 - add code comments
 - clean up code
+- move this list into github issues
