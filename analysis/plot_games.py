@@ -19,10 +19,8 @@ for game in games:
 				ret[game["Event"]] = {}
 				plots[game["Event"]] = {"x":[],"y":[]}
 
-			date_str = game["UTCDate"] + " " + game["UTCTime"]
-			date = datetime.strptime(date_str,'%Y.%m.%d %H:%M:%S')
-
-			if game["White"] == "beefybeefy":
+			date = game["Datetime"]
+			if game["White"] == "beefybeefy": # TODO: put this somewhere easier to change
 				ret[game["Event"]][date] = game["WhiteElo"]
 			else:
 				ret[game["Event"]][date] = game["BlackElo"]

@@ -1,4 +1,5 @@
 import pickle
+from datetime import datetime
 
 fin = "./data/games.pgn"
 fout = "./data/games.pickle"
@@ -22,5 +23,16 @@ for line in open(fin,"rb"):
 		games.append(rec)
 		rec = {}
 
+has_key = lambda key: key in game.keys()
+has_keys = lambda keys: all([has_key(key) for key in keys])
+for game in games:
+	if has_keys(["UTCDate","UTCTime","White","Black","WhiteElo","BlackElo","Event"]):
+		date_str = game["UTCDate"] + " " + game["UTCTime"]
+		date = datetime.strptime(date_str,'%Y.%m.%d %H:%M:%S')
+		game["Datetime"] = date
+	else:
+		game["Datetime"] = datetime.now()
+
+ret = sorted(games, key=lambda k:k["Datetime"])
 with open("./data/games.pickle", "wb") as f:
-	pickle.dump(games, f)
+	pickle.dump(ret, f)
